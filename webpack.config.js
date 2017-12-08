@@ -25,6 +25,18 @@ const productionConfig = () => commonConfig;
 
 const developmentConfig = () => {
   const config = {
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          enforce: 'pre',
+          loader: 'eslint-loader',
+          options: {
+            emitWarning: true,
+          },
+        },
+      ],
+    },
     devServer: {
       // Enable history API fallback so HTML5 History API based routing works. Good for complex setups.
       historyApiFallback: true,
@@ -35,6 +47,11 @@ const developmentConfig = () => {
       // host: options.host || '0.0.0.0';
       host: process.env.HOST, // Defaults to 'localhost'
       port: process.env.PORT, // Defaults to 8080
+      // overlay: true is equivalent to:
+      overlay: {
+        errors: true,
+        warnings: true,
+      },
     },
   };
   return Object.assign(
