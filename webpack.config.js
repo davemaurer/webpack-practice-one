@@ -15,6 +15,22 @@ const commonConfig = {
     filename: '[name].js',
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        eslint: {
+          // fail only on errors
+          failOnWarning: false,
+          failOnError: true,
+          // toggle autofix
+          fix: false,
+          // output to Jenkins compatible XML
+          outputReport: {
+            filePath: 'checkstyle.xml',
+            formatter: require('eslint/lib/formatters/checkstyle'),
+          },
+        },
+      },
+    }),
     new HtmlWebpackPlugin({
       title: 'Webpack demo',
     }),
